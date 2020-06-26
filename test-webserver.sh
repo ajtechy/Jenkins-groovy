@@ -4,7 +4,7 @@ do
     then
     	export NodePort=$(kubectl get svc -o jsonpath='{.items[*].spec.ports[*].nodePort}')
         echo $NodePort
-        export status_code=$(curl -s -o /dev/null -w "%{http_code}" 192.168.99.101:$NodePort/$file)
+        export status_code=$(curl -s -o /dev/null -w "%{http_code}" 192.168.99.102:$NodePort/$file)
         echo $status_code
         echo $file $NodePort $status_code
         if [[ $status_code == 200 ]]
@@ -21,7 +21,7 @@ do
     then
     	export NodePort=$(kubectl get svc -o jsonpath='{.items[*].spec.ports[*].nodePort}')
         echo $NodePort
-        export status_code=$(curl -s -o /dev/null -w "%{http_code}" 192.168.99.101:$NodePort/$file)
+        export status_code=$(curl -s -o /dev/null -w "%{http_code}" 192.168.99.102:$NodePort/$file)
         echo $status_code
         echo $file $NodePort $status_code
         if [[ $status_code == 200 ]]
