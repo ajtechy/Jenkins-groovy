@@ -8,7 +8,7 @@ job("devops-task6-pull-code"){
     }
     wrappers {
     preBuildCleanup()
-  }
+    }
     steps {
         shell(readFileFromWorkspace("copy-code.sh"))
     }
