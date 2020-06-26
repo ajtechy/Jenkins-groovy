@@ -1,4 +1,4 @@
-for file in $(ls /root/devops-task3/devops-task3-pull-code/)
+for file in $(ls /root/devops-task6/devops-task6-pull-code/)
 do
 	if [[ -n $(echo $file | grep html) ]]
     then
