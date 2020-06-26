@@ -62,7 +62,7 @@ job("devops-task6-notify-mail") {
                 failure{
                     attachBuildLog(true)
                     subject('Failed build')
-                    content('The build was failed. Webserver is not working properly.')
+                    content('The build was failed. Webserver is not working properly. update code and again push')
                     recipientList('anshujhalani98@gmail.com')
                 }
             }
