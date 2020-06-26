@@ -5,7 +5,7 @@ job("devops-task6-pull-code"){
         github('ajtechy/devops-task6-git-kubernetes-jenkins-groovy', 'master')
     }
     triggers{
-        upstream("devops-task6-seed-job")
+        upstream("devops-task6-seed-job", 'SUCCESS')
     }
     wrappers {
     preBuildCleanup()
@@ -19,7 +19,7 @@ job("devops-task6-check-code"){
     description("This job will check code and deploy environment accordingly")
   
     triggers {
-        upstream("devops-task6-pull-code")
+        upstream("devops-task6-pull-code",'SUCCESS')
     }
     steps {
         shell(readFileFromWorkspace("check-code.sh"))
@@ -31,7 +31,7 @@ job("devops-task6-test-code") {
     description("This job will test whether our webserver is working or not and also tigger to notify job")
   
     triggers {
-         upstream("devops-task6-check-code")
+         upstream("devops-task6-check-code",'SUCCESS')
     }
 
     steps {
@@ -43,7 +43,7 @@ job("devops-task6-notify-mail") {
     description("This job will  Send Mail to Developer if webserver is not working properly ")
   
     triggers {
-        upstream("devops-task6-test-code") 
+        upstream("devops-task6-test-code",'SUCCESS') 
     }
     steps {
         shell('cp /root/.jenkins/workspace/devops-task3-pull-code/web.html .')
@@ -54,12 +54,6 @@ job("devops-task6-notify-mail") {
             attachmentPatterns('web.html')
             triggers {
                 success{
-                    attachBuildLog(true)
-                    subject('Build successfull')
-                    content('The build was successful and deployment was done. Webserver is working properly.')
-                    recipientList('anshujhalani1998@gmail.com')
-                }
-                failure{
                     attachBuildLog(true)
                     subject('Failed build')
                     content('The build was failed. Webserver is not working properly. update code and again push')
