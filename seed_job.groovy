@@ -20,6 +20,7 @@ job("devops-task6-check-code"){
 
     steps {
         shell(readFileFromWorkspace("check-code.sh"))
+    }
     
 }
 
@@ -39,26 +40,29 @@ job("devops-task6-notify-mail") {
     description("This job will  Send Mail to Developer if webserver is not working properly ")
   
     triggers {
-        upstream("devops-task6-test-code")
+        upstream("devops-task6-test-code") 
     }
-    
+    steps {
+        shell('cp /root/.jenkins/workspace/devops-task3-pull-code/web.html .')
+    }
     publishers {
         extendedEmail {
-        contentType('text/html')
-        triggers {
-            success{
-                attachBuildLog(true)
-                subject('Build successfull')
-                content('The build was successful and deployment was done.')
-                recipientList('anshujhalani98@gmail.com')
+            contentType('text/html')
+            attachmentPatterns('web.html')
+            triggers {
+                success{
+                    attachBuildLog(true)
+                    subject('Build successfull')
+                    content('The build was successful and deployment was done. Webserver is working properly.')
+                    recipientList('anshujhalani98@gmail.com')
+                }
+                failure{
+                    attachBuildLog(true)
+                    subject('Failed build')
+                    content('The build was failed. Webserver is not working properly.')
+                    recipientList('anshujhalani98@gmail.com')
+                }
             }
-            failure{
-                attachBuildLog(true)
-                subject('Failed build')
-                content('The build was failed')
-                recipientList('anshujhalani98@gmail.com')
-            }
-        }
         }
     }
 }
