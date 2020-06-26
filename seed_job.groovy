@@ -70,3 +70,13 @@ job("devops-task6-notify-mail") {
     }
 }
 
+buildPipelineView("devops-task6-deployment-on-kubernetes") {
+    title("Task-6")
+    selectedJob("devops-task6-pull-code")
+    alwaysAllowManualTrigger(true)
+    refreshFrequency(3)
+    displayedBuilds(1)
+    showPipelineParameters(true)
+    filterBuildQueue(true)
+    filterExecutors(false)
+}
