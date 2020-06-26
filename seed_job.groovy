@@ -20,7 +20,6 @@ job("devops-task6-check-code"){
     triggers {
         upstream("devops-task6-pull-code")
     }
-
     steps {
         shell(readFileFromWorkspace("check-code.sh"))
     }
