@@ -5,7 +5,7 @@ job("devops-task6-pull-code"){
         github('ajtechy/devops-task6-git-kubernetes-jenkins-groovy', 'master')
     }
     triggers{
-        githubPush()
+        upstream("devops-task6-seed-job")
     }
     wrappers {
     preBuildCleanup()
@@ -57,13 +57,13 @@ job("devops-task6-notify-mail") {
                     attachBuildLog(true)
                     subject('Build successfull')
                     content('The build was successful and deployment was done. Webserver is working properly.')
-                    recipientList('anshujhalani98@gmail.com')
+                    recipientList('anshujhalani1998@gmail.com')
                 }
                 failure{
                     attachBuildLog(true)
                     subject('Failed build')
                     content('The build was failed. Webserver is not working properly. update code and again push')
-                    recipientList('anshujhalani98@gmail.com')
+                    recipientList('anshujhalani1998@gmail.com')
                 }
             }
         }
